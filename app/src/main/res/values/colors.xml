@@ -11,4 +11,6 @@
     <color name="colorGrisOscuro">#444</color>
     <color name="colorGrisClaro">#aaa</color>
     <color name="colorBlanco">#fff</color>
+    <color name="colorFondoAnimacion">#A6ACAF</color>
+
 </resources>

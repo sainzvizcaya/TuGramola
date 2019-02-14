@@ -2,4 +2,5 @@
     <string name="app_name">ItunesIonic</string>
     <string name="busquedaItunes">Busqueda en Tu Gramola</string>
     <string name="introduceCancion">Introduce canción, artista o album...</string>
+    <string name="creditos_activity">Créditos</string>
 </resources>
