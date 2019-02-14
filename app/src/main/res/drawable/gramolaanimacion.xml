@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:id="@+id/gramolaanim"
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/gramola" android:duration="200" />
+    <item android:drawable="@drawable/gramola2" android:duration="200" />
+    <item android:drawable="@drawable/gramola3" android:duration="200" />
+    <item android:drawable="@drawable/gramola4" android:duration="200" />
+    <item android:drawable="@drawable/gramola5" android:duration="200" />
+    <item android:drawable="@drawable/gramola6" android:duration="200" />
+    <item android:drawable="@drawable/gramola7" android:duration="200" />
+    <item android:drawable="@drawable/gramola8" android:duration="200" />
+    <item android:drawable="@drawable/gramola9" android:duration="200" />
+    <item android:drawable="@drawable/gramola10" android:duration="200" />
+    <item android:drawable="@drawable/gramola11" android:duration="200" />
+    <item android:drawable="@drawable/gramola12" android:duration="200" />
+    <item android:drawable="@drawable/gramola13" android:duration="200" />
+    <item android:drawable="@drawable/gramola14" android:duration="1000" />
+</animation-list>

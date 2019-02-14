@@ -52,3 +52,23 @@ public class SplashActivity extends AppCompatActivity {
         });
 
     }
+    private void mostrarAnimacion() {
+        imageView = findViewById(R.id.img1);
+
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(0);
+        imageView.setBackgroundResource(R.drawable.gramolaanimacion);
+
+        // Coger el background para mostrar la animation
+        animationDrawable = (AnimationDrawable) imageView.getBackground();
+        animationDrawable.start();
+    }
+
+    public void saltar(View view) {
+        // Voy al main activity
+        intentMain = new Intent(this, MainActivity.class);
+        startActivity (intentMain);
+    }
+
+
+}
