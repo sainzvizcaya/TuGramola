@@ -1,7 +1,9 @@
-package tablerocolores.cfic.edu.tugramola;
+package tablerocolores.cfic.edu.tugramola.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import tablerocolores.cfic.edu.tugramola.R;
 
 public class MainActivity extends AppCompatActivity {
 
