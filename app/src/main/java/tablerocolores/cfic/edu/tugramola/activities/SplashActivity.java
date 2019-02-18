@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -26,15 +25,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         splashPreferences = new SplashPreferences(this);
-        boolean checkmarcado = splashPreferences.dameCheck(new String(clave));
-        Log.d("MIAPP","check:"+checkmarcado);
+        boolean checkmarcado = splashPreferences.dameCheck();
 
         if (!checkmarcado) {
             mostrarAnimacion();
         } else {
-            // Voy al main activity
-            //intentMain = new Intent(this, MainActivity.class);
-            //startActivity (intentMain);
+            saltar(this.imageView);
         }
 
         // Defino el listener del check
@@ -44,14 +40,28 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 if(checkBox.isChecked()) {
-                    splashPreferences.ponCheck(clave, true);
+                    splashPreferences.ponCheck(true);
                 }else{
-                    splashPreferences.ponCheck(clave, false);
+                    splashPreferences.ponCheck( false);
                 }
             }
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean checkmarcado = splashPreferences.dameCheck();
+
+        if (!checkmarcado) {
+            mostrarAnimacion();
+        } else {
+            saltar(this.imageView);
+        }
+
+    }
+
     private void mostrarAnimacion() {
         imageView = findViewById(R.id.img1);
 

@@ -6,10 +6,8 @@ import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.PublicKey;
 
 import tablerocolores.cfic.edu.tugramola.R;
-import tablerocolores.cfic.edu.tugramola.activities.MainActivity;
 import tablerocolores.cfic.edu.tugramola.fragments.Busqueda;
 import tablerocolores.cfic.edu.tugramola.miscelaneo.DescargaCanciones;
 

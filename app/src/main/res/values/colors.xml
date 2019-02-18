@@ -13,4 +13,23 @@
     <color name="colorBlanco">#fff</color>
     <color name="colorFondoAnimacion">#A6ACAF</color>
 
+
+    <color name="colorRojCla">#F8D0C9</color>
+    <color name="colorRoj">#E91E63</color>
+    <color name="colorRojOsc">#7A0028</color>
+    <color name="colorAmaCla">#FCFAD4</color>
+    <color name="colorAma">#FFEB3B</color>
+    <color name="colorAmaOsc">#FFD600</color>
+    <color name="colorVerCla">#D9FCA1</color>
+    <color name="colorVer">#8BC34A</color>
+    <color name="colorVerOsc">#008577</color>
+    <color name="colorAzuCla">#6CCCFF</color>
+    <color name="colorAzu">#2196F3</color>
+    <color name="colorAzuOsc">#3F51B5</color>
+    <color name="colorGriCla">#E6E7E7</color>
+    <color name="colorGri">#808080</color>
+    <color name="colorGriOsc">#000000</color>
+    <color name="colorMarCla">#E4CD8A</color>
+    <color name="colorMar">#B97E23</color>
+    <color name="colorMarOsc">#573706</color>
 </resources>

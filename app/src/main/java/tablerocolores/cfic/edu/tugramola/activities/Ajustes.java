@@ -23,7 +23,8 @@ public class Ajustes extends AppCompatActivity {
         //TODO Comprobar el valor que tiene el switch para pasarselo al boton
         Log.d("MIAPP","Cogemos el valor de preferences");
 
-        boolean checkmarcado = splashPreferences.dameCheck(new String(clave));
+        boolean checkmarcado = splashPreferences.dameCheck();
+
         final Switch sw_animacion = (Switch) findViewById(R.id.animacion);
 
         sw_animacion.setChecked(checkmarcado);
@@ -36,13 +37,13 @@ public class Ajustes extends AppCompatActivity {
                 {
                     //TODO Cambiar en preferences el valor
                     Log.d("MIAPP","Checked");
-                    splashPreferences.ponCheck("",true);
+                    splashPreferences.ponCheck(true);
 
                 }else
                 {
                     //TODO no checked
                     Log.d("MIAPP","NoChecked");
-                    splashPreferences.ponCheck("",false);
+                    splashPreferences.ponCheck(false);
                 }
             }
         });

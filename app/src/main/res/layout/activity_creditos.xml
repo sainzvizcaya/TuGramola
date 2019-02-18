@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/fondo"
-    tools:context="basico.android.cftic.edu.tugramola.actividades.CreditosActivity">
+    tools:context="tablerocolores.cfic.edu.tugramola.activities.CreditosActivity">
     <FrameLayout
         android:id="@+id/cenefa"
         style="@style/cenefa"

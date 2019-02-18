@@ -1,6 +1,14 @@
 <resources>
-    <string name="app_name">ItunesIonic</string>
+    <string name="app_name">TuGramola</string>
     <string name="busquedaItunes">Busqueda en Tu Gramola</string>
     <string name="introduceCancion">Introduce canción, artista o album...</string>
     <string name="creditos_activity">Créditos</string>
+    <string name="tab_text_1">Buscar</string>
+    <string name="tab_text_2">Favoritos</string>
+    <string name="tab_text_3">Resultados</string>
+    <string name="menu_text_1">Créditos</string>
+    <string name="menu_text_2">Acerca de...</string>
+    <string name="menu_text_3">Ajustes</string>
+    <string name="menu_text_4">Salir</string>
+    <string name="section_format">Section: %1$d</string>
 </resources>

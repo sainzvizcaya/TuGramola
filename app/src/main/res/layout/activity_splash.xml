@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    style="@style/fondo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorFondoAnimacion"
     tools:context=".activities.SplashActivity">
+
+    <FrameLayout
+        android:id="@+id/cenefa"
+        style="@style/cenefa"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:background="@color/colorGrisClaro"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:layout_height="0dp"
-        android:layout_weight="83">
+        android:layout_weight="60">
         <ImageView
             android:id="@+id/img1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:visibility="invisible"
             app:srcCompat="@drawable/gramola" />
     </LinearLayout>
@@ -26,6 +33,7 @@
         android:layout_height="0dp"
         android:layout_weight="10">
         <CheckBox
+            style="@style/texto"
             android:id="@+id/checkBoxSplash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,15 +49,17 @@
             app:layout_constraintHorizontal_bias="0.273"
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
         android:orientation="horizontal">
         <Button
+            style="@style/titulo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ededed"
+            android:background="@color/colorGrisOscuro"
             android:text="Saltar introducción"
             android:onClick="saltar"
             android:id="@+id/saltar"/>

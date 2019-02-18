@@ -8,25 +8,30 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.squareup.picasso.Picasso;
 
 import tablerocolores.cfic.edu.tugramola.R;
-import tablerocolores.cfic.edu.tugramola.activities.MainActivity;
+import tablerocolores.cfic.edu.tugramola.activities.DetalleCancionActivity;
+import tablerocolores.cfic.edu.tugramola.activities.MainActivity1;
+
+import tablerocolores.cfic.edu.tugramola.dao.BaseDatosCanciones;
+
 import tablerocolores.cfic.edu.tugramola.dto.Cancion;
-import tablerocolores.cfic.edu.tugramola.dto.DetalleCancion;
+
 
 
 public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHolder
 {
     private TextView id, artista, cancion;
-    private ImageView imageView,imagenMedia,imagenPlaying;
+    private ImageView imageView,imagenMedia,imagenPlaying,imageFavorito;
     private Context contexto;
     private String cancionURL;
-    private boolean playingThis,play;
+    private boolean playingThis,play,favorita;
     private Cancion cancionObj;
     private MediaPlayer mp;
+    private static BaseDatosCanciones baseDatosCanciones;
 
 
     //CONSTRUCTOR
@@ -39,7 +44,11 @@ public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHo
         this.cancion = itemView.findViewById(R.id.cancion);
         this.imageView = itemView.findViewById(R.id.imageView);
         this.imagenMedia = itemView.findViewById(R.id.imagenMedia);
+        this.imageFavorito=itemView.findViewById(R.id.imagenFavorito);
         this.contexto=contexto;
+        this.favorita=false;
+
+
         this.cancionURL="";
         this.play=false;
         this.playingThis=false;
@@ -49,6 +58,26 @@ public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHo
             public void onClick(View v) {
                 //irDetalle();
             }});
+
+        imageFavorito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (favorita)
+                {
+                    Picasso.with(contexto).load(R.drawable.faviconoff).into(imageFavorito);
+                    baseDatosCanciones=MainActivity1.getBaseDatosCanciones();
+                    baseDatosCanciones.eliminarCancion(cancionObj.getTrackId());
+                }
+                else
+                    {
+                    Picasso.with(contexto).load(R.drawable.faviconon).into(imageFavorito);
+                    baseDatosCanciones=MainActivity1.getBaseDatosCanciones();
+                    baseDatosCanciones.insertarCancion(cancionObj);
+                }
+                favorita=!favorita;
+             }
+        });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +91,11 @@ public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHo
 
                 //Toast.makeText(contexto,"En el PLAY",Toast.LENGTH_SHORT).show();
 
-                   mp=MainActivity.getReproductor();
-                   imagenPlaying=MainActivity.getPlayButton();
+                   mp=MainActivity1.getReproductor();
+                   imagenPlaying=MainActivity1.getPlayButton();
                    play=playingThis;
 
-                   if (MainActivity.isPlay())
+                   if (MainActivity1.isPlay())
                     {   pararCancion(v);
                         if (!play)
                             {//Pulso play en cancion nueva
@@ -86,7 +115,7 @@ private void pararCancion(View v)
        mp.stop();
        mp.reset();
        playingThis = false;
-       MainActivity.setPlay(false);
+       MainActivity1.setPlay(false);
 
        if (imagenPlaying != null)
            Picasso.with(contexto).load(android.R.drawable.ic_media_play).into(imagenPlaying);
@@ -108,10 +137,10 @@ private void reproducirCancion (View v)
        mp.prepare();
        mp.setVolume(100, 100);
        playingThis = true;
-       MainActivity.setPlay(true);
+       MainActivity1.setPlay(true);
        mp.start();
 
-       MainActivity.setPlayButton((ImageView) v);
+       MainActivity1.setPlayButton((ImageView) v);
        Picasso.with(contexto).load(android.R.drawable.ic_media_pause).into((ImageView) v);
    }
    catch (IllegalStateException  e)
@@ -133,15 +162,32 @@ public void actualizarHolder (CancionHolder cancionHolder, Cancion c)
         cancionHolder.cancion.setText(c.getTrackName());
         cancionHolder.cancionURL=c.getPreviewUrl();
         cancionHolder.cancionObj=c;
+        try
+            {
+                this.favorita=MainActivity1.getBaseDatosCanciones().buscarCancion(cancionObj.getTrackId());
+            }
+        catch (Exception e)
+            {
+            this.favorita=false;
+            }
+
+        if (this.favorita)
+            Picasso.with(contexto).load(R.drawable.faviconon).into(imageFavorito);
+        else
+            Picasso.with(contexto).load(R.drawable.faviconoff).into(imageFavorito);
+
         Picasso.with(contexto).load(imagenTxt).into(imageView);
 
     }
     private void irDetalle()
     {   //Toast.makeText(contexto,"Ir DETALLE",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(contexto,DetalleCancion.class);
+        Intent intent = new Intent(contexto,DetalleCancionActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("cancion",cancionObj);
         intent.putExtras(bundle);
+        //Detengo la cancion y pongo el boton de PAUSE a PLAY
+        pararCancion(MainActivity1.getPlayButton());
+
         contexto.startActivity(intent);
     }
 }//FIN CLASE CANCIONHOLDER

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/marco_anim"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AnimacionActivity">
+
+    <FrameLayout
+        android:id="@+id/marco_anim1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/d1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/disco" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/marco_anim2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/d2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/joandylan" />
+
+    </FrameLayout>
+
+</RelativeLayout>
