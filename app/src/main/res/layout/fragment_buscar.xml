@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fragments.BuscarFragment">
+    style="@style/fondo"
+    tools:context=".fragments.BuscarFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        style="@style/titulo"
-        android:gravity="center"
-        android:text="BUSCAR" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/fondo"
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/cenefa"
+            style="@style/cenefa"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            style="@style/titulo"
+            android:text="Tu Búsqueda"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/CmbOpciones"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/redondo"
+                    android:padding="20dp"
+                    />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@drawable/expandir"/>
+
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="40dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/dato"
+                    style="@style/texto"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:padding="15dp"
+                    android:hint=""
+                    android:textColorHint="@color/colorLilaClaro"
+                    android:background="@drawable/redondo"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:onClick="buscar"
+                    android:src="@drawable/search" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </FrameLayout>

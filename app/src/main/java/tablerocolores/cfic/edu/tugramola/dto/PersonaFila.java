@@ -1,23 +1,25 @@
 package tablerocolores.cfic.edu.tugramola.dto;
 
 
-public class Persona {
+public class PersonaFila {
 
     private int id;
     private String nombre;
     private String foto;
-    private String lin;
     private String git;
+    private String lin;
+    private String gitIco;
+    private String linIco;
 
 
-    public Persona() {}
+    public PersonaFila() {}
 
-    public Persona(int id, String nombre, String foto, String lin, String git) {
+    public PersonaFila(int id, String nombre, String foto, String lin, String git) {
         this.id = id;
         this.nombre = nombre;
         this.foto = foto;
-        this.lin = lin;
         this.git = git;
+        this.lin = lin;
     }
 
 
@@ -33,12 +35,20 @@ public class Persona {
         return foto;
     }
 
+    public String getGit() {
+        return git;
+    }
+
     public String getLin() {
         return lin;
     }
 
-    public String getGit() {
-        return git;
+    public String getGitIco() {
+        return gitIco;
+    }
+
+    public String getLinIco() {
+        return linIco;
     }
 
     public void setId(int id) {
@@ -53,11 +63,19 @@ public class Persona {
         this.foto = foto;
     }
 
+    public void setGit(String git) {
+        this.git = git;
+    }
+
     public void setLin(String lin) {
         this.lin = lin;
     }
 
-    public void setGit(String git) {
-        this.git = git;
+    public void setGitIco(String gitIco) {
+        this.gitIco = gitIco;
+    }
+
+    public void setLinIco(String linIco) {
+        this.linIco = linIco;
     }
 }

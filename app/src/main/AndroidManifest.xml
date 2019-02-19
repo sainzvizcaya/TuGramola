@@ -27,6 +27,7 @@
         </activity>
         <activity android:name=".activities.Ajustes" />
         <activity android:name=".activities.AnimacionActivity"></activity>
+        <activity android:name=".activities.CreditosActivity"></activity>
     </application>
 
 </manifest>

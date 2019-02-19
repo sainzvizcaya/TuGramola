@@ -2,6 +2,7 @@ package tablerocolores.cfic.edu.tugramola.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -139,7 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
 
@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Opción del menú de Creditos
             case R.id.menu_seccion_1:
                 Log.i("NavigationView", "Pulsada opción 1");
+                Intent i1 = new Intent(this,CreditosActivity.class);
+                startActivity(i1);
 
                 //Añadir aquí la llamada a la actividad correspondiente
 
@@ -155,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Opción del menú de Acerca de
             case R.id.menu_seccion_2:
                 Log.i("NavigationView", "Pulsada opción 2");
-
+                Intent i2 = new Intent(this,Acercade.class);
+                startActivity(i2);
                 //Añadir aquí la llamada a la actividad correspondiente
 
                 break;
@@ -163,7 +166,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Opción del menú de Ajustes
             case R.id.menu_seccion_3:
                 Log.i("NavigationView", "Pulsada opción 3");
-
+                Intent i3= new Intent(this,Ajustes.class);
+                startActivity(i3);
                 //Añadir aquí la llamada a la actividad correspondiente
 
                 break;
@@ -252,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 0;
         }
 
         @Nullable

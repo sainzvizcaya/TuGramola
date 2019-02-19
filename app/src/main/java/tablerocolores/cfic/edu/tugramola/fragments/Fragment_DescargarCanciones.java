@@ -23,19 +23,17 @@ public class Fragment_DescargarCanciones extends AsyncTask<String, Void, Resulta
     //https://itunes.apple.com/search/?media=music&term=chiquetete
     //http://jsonviewer.stack.hu/  --> con esto veo el JSON
 
-    private static final String URI_ITUNES="https://itunes.apple.com/search/?media=music&limit=20&term=";
-
     //Lo siguiente que hago es obtener una referencia de la pantalla de la que vengo para poder llamar a un metodo suyo y poder enviarla datos.
-    private Fragment_main mainActivity;
+    private Fragment_main mainFragment;
     public Fragment_DescargarCanciones(Fragment_main mA) {
         //
-        this.mainActivity=mA;
+        this.mainFragment=mA;
     }
 
 
 
     @Override
-    protected ResultadoCanciones doInBackground(String... canciones) {
+    protected ResultadoCanciones doInBackground(String... urlItunes) {
         //Advance REST CLIENT para CHROME
         //Este es el que hace la conexion, recibe los datos y luego llama a "onPostExecute" de esta misma clase.
         ResultadoCanciones resultadoCanciones=null;
@@ -47,7 +45,7 @@ public class Fragment_DescargarCanciones extends AsyncTask<String, Void, Resulta
 
         //Puede que no haya conexion de internet--> ponemos un try catch con finally
         try
-            {url=new URL(URI_ITUNES+canciones[0]);
+            {url=new URL(urlItunes[0]);
             httpURLConnection=(HttpURLConnection) url.openConnection();
             if (httpURLConnection.getResponseCode()==httpURLConnection.HTTP_OK)
                 {  //Get type MIME para identificar que tipo de informacion me viene
@@ -104,7 +102,7 @@ public class Fragment_DescargarCanciones extends AsyncTask<String, Void, Resulta
         super.onPostExecute(resultadoCanciones);
         Gson gson=new GsonBuilder().setPrettyPrinting().create();
         String stringCanciones=gson.toJson(resultadoCanciones);
-        mainActivity.mostrarResultados(resultadoCanciones);
+        mainFragment.mostrarResultados(resultadoCanciones);
         Log.d("JNG","CANCIONES= "+stringCanciones);
 
         //OBS si le paso CONTEXT en vez de MainActivity y lo guardo como context

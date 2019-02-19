@@ -14,6 +14,7 @@ import tablerocolores.cfic.edu.tugramola.R;
 import tablerocolores.cfic.edu.tugramola.dto.Cancion;
 import tablerocolores.cfic.edu.tugramola.fragments.Fragment_favoritos;
 
+
 public class FavoritosHolder extends RecyclerView.ViewHolder
 {
     private TextView id, artista, cancion;
@@ -138,7 +139,7 @@ public void actualizarHolder (FavoritosHolder favoritosHolder, Cancion c)
     private void irDetalle()
     {   //Toast.makeText(contexto,"Ir DETALLE",Toast.LENGTH_SHORT).show();
         /*
-        Intent intent = new Intent(contexto,DetalleCancionActivity.class);
+        Intent intent = new Intent(contexto,DetalleCancion.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("cancion",cancionObj);
         intent.putExtras(bundle);

@@ -24,7 +24,7 @@ public class DescargarCanciones extends AsyncTask<String, Void, ResultadoCancion
     //https://itunes.apple.com/search/?media=music&term=chiquetete
     //http://jsonviewer.stack.hu/  --> con esto veo el JSON
 
-    private static final String URI_ITUNES="https://itunes.apple.com/search/?media=music&limit=20&term=";
+    //private static final String URI_ITUNES="https://itunes.apple.com/search/?media=music&limit=20&term=";
 
     //Lo siguiente que hago es obtener una referencia de la pantalla de la que vengo para poder llamar a un metodo suyo y poder enviarla datos.
     private MainActivity1 mainActivity;
@@ -45,7 +45,7 @@ public class DescargarCanciones extends AsyncTask<String, Void, ResultadoCancion
 
         //Puede que no haya conexion de internet--> ponemos un try catch con finally
         try
-            {url=new URL(URI_ITUNES+canciones[0]);
+            {url=new URL(canciones[0]);
             httpURLConnection=(HttpURLConnection) url.openConnection();
             if (httpURLConnection.getResponseCode()==httpURLConnection.HTTP_OK)
                 {  //Get type MIME para identificar que tipo de informacion me viene

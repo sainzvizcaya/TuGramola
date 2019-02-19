@@ -8,18 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.squareup.picasso.Picasso;
 
 import tablerocolores.cfic.edu.tugramola.R;
 import tablerocolores.cfic.edu.tugramola.activities.DetalleCancionActivity;
-import tablerocolores.cfic.edu.tugramola.activities.MainActivity1;
 
 import tablerocolores.cfic.edu.tugramola.dao.BaseDatosCanciones;
 
 import tablerocolores.cfic.edu.tugramola.dto.Cancion;
-
+import tablerocolores.cfic.edu.tugramola.fragments.Fragment_detalle_cancion;
+import tablerocolores.cfic.edu.tugramola.fragments.Fragment_main;
 
 
 public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHolder
@@ -66,13 +64,13 @@ public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHo
                 if (favorita)
                 {
                     Picasso.with(contexto).load(R.drawable.faviconoff).into(imageFavorito);
-                    baseDatosCanciones=MainActivity1.getBaseDatosCanciones();
+                    baseDatosCanciones=Fragment_main.getBaseDatosCanciones();
                     baseDatosCanciones.eliminarCancion(cancionObj.getTrackId());
                 }
                 else
                     {
                     Picasso.with(contexto).load(R.drawable.faviconon).into(imageFavorito);
-                    baseDatosCanciones=MainActivity1.getBaseDatosCanciones();
+                    baseDatosCanciones=Fragment_main.getBaseDatosCanciones();
                     baseDatosCanciones.insertarCancion(cancionObj);
                 }
                 favorita=!favorita;
@@ -91,11 +89,11 @@ public class CancionHolder extends android.support.v7.widget.RecyclerView.ViewHo
 
                 //Toast.makeText(contexto,"En el PLAY",Toast.LENGTH_SHORT).show();
 
-                   mp=MainActivity1.getReproductor();
-                   imagenPlaying=MainActivity1.getPlayButton();
+                   mp=Fragment_main.getReproductor();
+                   imagenPlaying=Fragment_main.getPlayButton();
                    play=playingThis;
 
-                   if (MainActivity1.isPlay())
+                   if (Fragment_main.isPlay())
                     {   pararCancion(v);
                         if (!play)
                             {//Pulso play en cancion nueva
@@ -115,7 +113,7 @@ private void pararCancion(View v)
        mp.stop();
        mp.reset();
        playingThis = false;
-       MainActivity1.setPlay(false);
+       Fragment_main.setPlay(false);
 
        if (imagenPlaying != null)
            Picasso.with(contexto).load(android.R.drawable.ic_media_play).into(imagenPlaying);
@@ -137,10 +135,10 @@ private void reproducirCancion (View v)
        mp.prepare();
        mp.setVolume(100, 100);
        playingThis = true;
-       MainActivity1.setPlay(true);
+       Fragment_main.setPlay(true);
        mp.start();
 
-       MainActivity1.setPlayButton((ImageView) v);
+       Fragment_main.setPlayButton((ImageView) v);
        Picasso.with(contexto).load(android.R.drawable.ic_media_pause).into((ImageView) v);
    }
    catch (IllegalStateException  e)
@@ -164,7 +162,7 @@ public void actualizarHolder (CancionHolder cancionHolder, Cancion c)
         cancionHolder.cancionObj=c;
         try
             {
-                this.favorita=MainActivity1.getBaseDatosCanciones().buscarCancion(cancionObj.getTrackId());
+                this.favorita=Fragment_main.getBaseDatosCanciones().buscarCancion(cancionObj.getTrackId());
             }
         catch (Exception e)
             {
@@ -186,8 +184,22 @@ public void actualizarHolder (CancionHolder cancionHolder, Cancion c)
         bundle.putSerializable("cancion",cancionObj);
         intent.putExtras(bundle);
         //Detengo la cancion y pongo el boton de PAUSE a PLAY
-        pararCancion(MainActivity1.getPlayButton());
+        pararCancion(Fragment_main.getPlayButton());
 
         contexto.startActivity(intent);
     }
-}//FIN CLASE CANCIONHOLDER
+    private void irDetalleFragment()
+    {   pararCancion(Fragment_main.getPlayButton());
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("cancion",cancionObj);
+
+        Fragment_detalle_cancion fr=new Fragment_detalle_cancion();
+        fr.setArguments(bundle);
+
+        fr.getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content,fr)
+                .addToBackStack(null)
+                .commit();
+    }
+}

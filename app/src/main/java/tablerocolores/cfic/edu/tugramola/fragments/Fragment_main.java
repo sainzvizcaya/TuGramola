@@ -30,6 +30,7 @@ public class Fragment_main extends Fragment {
     private static TextView sinConexion;
     private static BaseDatosCanciones baseDatosCanciones;
     private static View vista;
+    private static final String URI_ITUNES="https://itunes.apple.com/search/?media=music&limit=20&term=AC/DC";
 
     public static ImageView getPlayButton() {return playButton;}
 
@@ -46,6 +47,16 @@ public class Fragment_main extends Fragment {
     public static BaseDatosCanciones getBaseDatosCanciones() {return baseDatosCanciones;}
 
     public Fragment_main() { }
+    public String getURL()
+    {
+        String url;
+        url=URI_ITUNES;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            url = bundle.getString("URI_ITUNES", URI_ITUNES);
+        }
+        return url;
+    }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,11 +68,11 @@ public class Fragment_main extends Fragment {
         sinConexion.setVisibility(View.INVISIBLE);
 
         if (ConexionInternet.hayInternet(getContext())) {
-            String artista = "AC/DC";
+            String urlBusqueda = getURL();
             setReproductor(new MediaPlayer());
             setPlay(false);
             //El execute llama a doInBackground de la clase de Fragment_DescargarCanciones
-            new Fragment_DescargarCanciones(this).execute(artista);
+            new Fragment_DescargarCanciones(this).execute(urlBusqueda);
         }
         else {//Toast.makeText(getApplicationContext(),"NO HAY CONEXION A INTERNET",Toast.LENGTH_LONG).show();
             sinConexion.setVisibility(View.VISIBLE);

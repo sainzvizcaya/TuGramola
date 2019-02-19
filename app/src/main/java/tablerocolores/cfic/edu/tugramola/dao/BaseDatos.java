@@ -4,8 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 import tablerocolores.cfic.edu.tugramola.dto.Persona;
 
@@ -13,7 +16,7 @@ import tablerocolores.cfic.edu.tugramola.dto.Persona;
 public class BaseDatos extends SQLiteOpenHelper {
 
 
-    private final String sqlCreacionTablaPersonas = "CREATE TABLE PERSONAS (id INTEGER PRIMARY KEY, nombre TEXT, foto TEXT, git INTEGER, lin INTEGER)";
+    private final String sqlCreacionTablaPersonas = "CREATE TABLE PERSONAS (id INTEGER PRIMARY KEY, nombre TEXT, foto TEXT, lin INTEGER, git INTEGER)";
 
     public BaseDatos(Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version); //el método padre, llamará a Oncreate o OnUpgrade, segn corresponda
@@ -48,46 +51,56 @@ public class BaseDatos extends SQLiteOpenHelper {
     {
         SQLiteDatabase database = this.getWritableDatabase();
         //database.execSQL("INSERT INTO PERSONA (id, nombre, foto, git, lin) VALUES ("+ persona.getId()+" , '"+ persona.getNombre()+"')");
+
+        Log.d("MIAPP", "INSERT: "+persona.getId()+" - "+persona.getNombre()+" - "+persona.getFoto()+" - "+persona.getLin()+" - "+persona.getGit());
+
+
         database.execSQL("INSERT INTO PERSONAS (id, nombre, foto, git, lin) VALUES ("+ persona.getId()+" , '"+
                                                                                       persona.getNombre()+"', '"+
                                                                                       persona.getFoto()+"', '"+
-                                                                                      persona.getGit()+"', '"+
-                                                                                      persona.getLin()+"')");
+                                                                                      persona.getLin()+"', '"+
+                                                                                      persona.getGit()+"')") ;
         this.cerrarBaseDatos(database);
 
     }
 
-/*
-    public Persona selectPersona (String nombre)
+
+    public boolean existe ()
     {
+        Cursor cursor=null;
+        Log.d("MIAPP","BaseDatos#1");
         Persona persona = null;
         int aux_id = -1;
         String nombre_aux = null;
 
-        String consulta = "SELECT id, nombre FROM PERSONA WHERE nombre LIKE %"+nombre+"%;";
+        Log.d("MIAPP","BaseDatos#2");
+        //String consulta = "SELECT id, nombre FROM PERSONA WHERE nombre LIKE %"+nombre+"%;";
+        String consulta = "SELECT id FROM PERSONAS WHERE id=1;";
 
-
+        Log.d("MIAPP","BaseDatos#3");
         SQLiteDatabase basedatos = this.getReadableDatabase();
-        Cursor cursor = basedatos.rawQuery(consulta, null);
 
+        Log.d("MIAPP","BaseDatos#4");
+        //Cursor cursor = basedatos.rawQuery(consulta, null);
+        cursor = basedatos.rawQuery(consulta,null);
 
-        if( cursor != null || cursor.getCount() <=0)
-        {
+        //if( cursor != null || cursor.getCount() >0)
+        if( cursor.getCount() >0)
+        {   Log.d("MIAPP","BaseDatos#5");
             cursor.moveToFirst();
-
             aux_id = cursor.getInt(0); //la posicion primera, el id
-            nombre_aux = cursor.getString(1); //la posicion segunda, el id
-            persona = new Persona(aux_id, nombre_aux);
 
             cursor.close();
         }
 
         this.cerrarBaseDatos(basedatos);
 
-        return persona;
+        if (aux_id==-1){
+            return false;
+        } else{
+            return true;
+        }
     }
-*/
-
 
 
     public List<Persona> cargarPersonas ()
@@ -96,9 +109,13 @@ public class BaseDatos extends SQLiteOpenHelper {
         Persona persona = null;
         int aux_id = -1;
         String aux_nombre = null;
+        String aux_foto  = null;
+        String aux_git = null;
+        String aux_lin = null;
 
 
-        String consulta = "SELECT id, nombre FROM PERSONAS";
+        String consulta = "SELECT id, nombre, foto, git, lin FROM PERSONAS";
+        //order by cast(nombre as REAL) ASC
 
         SQLiteDatabase basedatos = this.getReadableDatabase();
         Cursor cursor = basedatos.rawQuery(consulta, null);
@@ -112,7 +129,11 @@ public class BaseDatos extends SQLiteOpenHelper {
             {
                 aux_id = cursor.getInt(0);          //la posicion primera, el id
                 aux_nombre = cursor.getString(1);   //la posicion segunda, el nombre
-                persona = new Persona(aux_id, aux_nombre,"","","");
+                aux_foto = cursor.getString(2);
+                aux_lin = cursor.getString(3);
+                aux_git = cursor.getString(4);
+
+                persona = new Persona(aux_id, aux_nombre, aux_foto, aux_lin, aux_git);
                 lista.add(persona);
 
             }while (cursor.moveToNext());
