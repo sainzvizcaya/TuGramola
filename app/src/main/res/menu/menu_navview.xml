@@ -14,6 +14,10 @@
             android:icon="@drawable/ic_menu"
             android:title="@string/menu_text_3"/>
         <item
+            android:id="@+id/borrar_favoritos"
+            android:icon="@drawable/ic_menu"
+            android:title="Borrar Favoritos"/>
+        <item
             android:id="@+id/menu_seccion_4"
             android:icon="@drawable/ic_menu"
             android:title="@string/menu_text_4"/>

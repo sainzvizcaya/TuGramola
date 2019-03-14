@@ -10,39 +10,55 @@ import java.net.URLEncoder;
 import tablerocolores.cfic.edu.tugramola.R;
 import tablerocolores.cfic.edu.tugramola.fragments.BuscarFragment;
 
-public class CriteriosBusqueda {
+public class
+
+
+CriteriosBusqueda {
     private static final String URI_ITUNES="https://itunes.apple.com/search/?media=music&entity=";
     private static final String URI_ITUNES_TODAS="https://itunes.apple.com/search/?media=music&term=";
     private static final String URI_CANCION="song&attribute=songTerm&term=";
     private static final String URI_ARTISTA="musicArtist&attribute=artistTerm&term=";
     private static final String URI_ALBUM="album&attribute=albumTerm&term=";
     private String dato_parceado;
-    //private Fragment_main context;
 
-    public CriteriosBusqueda(BuscarFragment ma){
-        EditText dato=ma.getView().findViewById(R.id.dato);
+    // https://itunes.apple.com/search/?media=music&entity=song&attribute=songTerm&term="LA BAMBA"
+    // https://itunes.apple.com/search/?media=music&entity=musicArtist&attribute=artistTerm&term="julio iglesias"
+    // https://itunes.apple.com/search/?media=music&entity=album&attribute=albumTerm&term="bad"
+    //https://itunes.apple.com/search/?media=music&term="cualquier cosa"
+    public CriteriosBusqueda(){}
+
+    public String parsear(String texto)
+    {
         try {
-            dato_parceado=URLEncoder.encode(dato.getText().toString(),"utf-8");
+            dato_parceado=URLEncoder.encode(texto,"utf-8");
         } catch (UnsupportedEncodingException e) {
             Log.d("LLLL","No se parceo los datos introducido por el user");
             e.printStackTrace();
         }
-        //context=ma;
+
+        return dato_parceado;
     }
 
-    public String  todas(){
-        return URI_ITUNES_TODAS+dato_parceado;
+    public String  todas(String dato){
+
+        String resultado = parsear(dato);
+        return URI_ITUNES_TODAS+resultado;
     }
 
-    public String porCancion(){
-        return URI_ITUNES+URI_CANCION+dato_parceado;
+    public String porCancion(String dato){
+        String resultado = parsear(dato);
+        return URI_ITUNES+URI_CANCION+resultado;
     }
 
-    public String porArtista(){
-        return URI_ITUNES+URI_ARTISTA+dato_parceado;
+    public String porArtista(String dato)
+    {
+        String resultado = parsear(dato);
+        return URI_ITUNES+URI_ARTISTA+resultado;
     }
 
-    public String porAlbum(){
-        return URI_ITUNES+URI_ALBUM+dato_parceado;
+    public String porAlbum(String dato)
+    {
+        String resultado = parsear(dato);
+        return URI_ITUNES+URI_ALBUM+resultado;
     }
 }

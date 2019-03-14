@@ -13,7 +13,7 @@ public class SplashPreferences {
 
     public SplashPreferences(Context c) {
 
-        //usamos el mismo fichero para las 2 preferences (tiempo record y nombre de usuario). Los métodos hay que duplicarlos por el tipo de datos (int, String)
+
         preferences = c.getSharedPreferences(nombreFichPref, MODE_PRIVATE);
 
     }

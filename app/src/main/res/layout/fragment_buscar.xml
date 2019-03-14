@@ -49,6 +49,7 @@
                     />
 
                 <ImageView
+                    android:id="@+id/flecha"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical|right"
@@ -57,11 +58,17 @@
 
 
             </FrameLayout>
-
+            <TextView
+                style="@style/texto"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Introduzca canción o artista a buscar"
+                android:gravity="center"
+                android:layout_gravity="center"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="40dp"
                 android:orientation="horizontal">
 
@@ -71,16 +78,16 @@
                     android:layout_width="0dp"
                     android:layout_weight="4"
                     android:padding="15dp"
-                    android:hint=""
-                    android:textColorHint="@color/colorLilaClaro"
+                    android:textColorHint="@color/colorLila"
                     android:background="@drawable/redondo"/>
 
                 <ImageView
                     android:layout_width="0dp"
+                    android:id="@+id/imagen_buscar"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:onClick="buscar"
+                    android:background="@color/colorBlanco"
                     android:src="@drawable/search" />
 
             </LinearLayout>

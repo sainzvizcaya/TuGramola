@@ -3,54 +3,119 @@ package tablerocolores.cfic.edu.tugramola.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.InputType;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import tablerocolores.cfic.edu.tugramola.R;
+import tablerocolores.cfic.edu.tugramola.dao.BaseDatosCanciones;
 import tablerocolores.cfic.edu.tugramola.fragments.BuscarFragment;
 import tablerocolores.cfic.edu.tugramola.fragments.Fragment_favoritos;
+import tablerocolores.cfic.edu.tugramola.fragments.Fragment_main;
 import tablerocolores.cfic.edu.tugramola.fragments.ResultadosFragment;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
     private DrawerLayout drawerLayout;
     private boolean menu_visible;//para gestionar si está visible o no el menú lateral
+    public static String Url = "";
 
+    public void buscar(View view)
+    {
+        Fragment fragment = new BuscarFragment();
+        //Toast.makeText(this,"buscar",Toast.LENGTH_SHORT).show();
+        Log.d("MIAPP","Pestaña buscar");
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor,fragment);
+        fragmentTransaction.commit();
+        // subrayamos y cambiamos de color el texto actual y hacemos lo contrario en los otros dos
+        TextView text = findViewById(R.id.t_buscar);
+        text.setTextColor(Color.CYAN);
+        //text.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        text.setText(Html.fromHtml("<u>BUSCAR</u>"));
+        // cambiamos los otros
+        TextView text2 = findViewById(R.id.t_resultados);
+        text2.setText("RESULTADOS");
+        text2.setTextColor(Color.WHITE);
+        TextView text3 = findViewById(R.id.t_favoritos);
+        text3.setText("FAVORITOS");
+        //text3.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        text3.setTextColor(Color.WHITE);
+
+    }
+
+    public void resultados(View view)
+    {
+        //Toast.makeText(this,"resultados",Toast.LENGTH_SHORT).show();
+        Log.d("MIAPP","Pestaña resultados");
+        Fragment fragment = new Fragment_main();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor,fragment);
+        fragmentTransaction.commit();
+        // subrayamos y cambiamos de color el texto actual y hacemos lo contrario en los otros dos
+        TextView text = findViewById(R.id.t_resultados);
+        //text.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        text.setTextColor(Color.CYAN);
+        text.setText(Html.fromHtml("<u>RESULTADOS</u>"));
+        // cambiamos los otros
+        TextView text2 = findViewById(R.id.t_buscar);
+        text2.setText("BUSCAR");
+        text2.setTextColor(Color.WHITE);
+        TextView text3 = findViewById(R.id.t_favoritos);
+        text3.setText("FAVORITOS");
+        text3.setTextColor(Color.WHITE);
+
+    }
+
+    public void favoritos(View view)
+    {
+        //Toast.makeText(this,"favoritos",Toast.LENGTH_SHORT).show();
+        Log.d("MIAPP","Pestaña favoritos");
+        Fragment fragment = new Fragment_favoritos();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.contenedor,fragment);
+        fragmentTransaction.commit();
+        // subrayamos y cambiamos de color el texto actual y hacemos lo contrario en los otros dos
+        TextView text = findViewById(R.id.t_favoritos);
+        //text.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+        text.setTextColor(Color.CYAN);
+        text.setText(Html.fromHtml("<u>FAVORITOS</u>"));
+        // cambiamos los otros
+        TextView text2 = findViewById(R.id.t_buscar);
+        text2.setText("BUSCAR");
+        text2.setTextColor(Color.WHITE);
+        TextView text3 = findViewById(R.id.t_resultados);
+        text3.setText("RESULTADOS");
+        text3.setTextColor(Color.WHITE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.menu_visible = false;
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
+
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_nav_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,19 +135,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this); //escucho los eventos de esta clase aquí
         //este es el que cambia el color de fondo
         navigationView.setBackgroundColor(getResources().getColor(R.color.colorGrisPlomo));
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        // mostramos la pestaña de busqueda al arrancar la aplicacion
+        TextView t = findViewById(R.id.t_buscar);
+        buscar(t);
 
     }
 
@@ -108,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /**
      * Provoca la finalización de la aplicación
      */
-    public void salirAplicacion() {
+    public void salirAplicacion2() {
         //si el terminal es versión superior API 15
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             this.finishAffinity(); //Cierra la app completamente. Esta función funciona a partir del API 16
@@ -117,9 +171,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed(); //finish();
         }
     }
-    @Override
-    public void onBackPressed() {
 
+    public void salirAplicacion()
+    {
         AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
         dialogo1.setTitle("A T E N C I O N");
         dialogo1.setMessage("¿ Desea realmente salir de la aplicación ?");
@@ -127,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         dialogo1.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
 
-                salirAplicacion();
+                salirAplicacion2();
             }
         });
         dialogo1.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -137,9 +191,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         dialogo1.show();
-
-
     }
+    @Override
+    public void onBackPressed() {
+
+        salirAplicacion();
+    }
+
+
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
 
@@ -149,9 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("NavigationView", "Pulsada opción 1");
                 Intent i1 = new Intent(this,CreditosActivity.class);
                 startActivity(i1);
-
-                //Añadir aquí la llamada a la actividad correspondiente
-
+                menu_visible = false;
                 break;
 
             //Opción del menú de Acerca de
@@ -159,8 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("NavigationView", "Pulsada opción 2");
                 Intent i2 = new Intent(this,Acercade.class);
                 startActivity(i2);
-                //Añadir aquí la llamada a la actividad correspondiente
-
+                menu_visible = false;
                 break;
 
             //Opción del menú de Ajustes
@@ -168,8 +224,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("NavigationView", "Pulsada opción 3");
                 Intent i3= new Intent(this,Ajustes.class);
                 startActivity(i3);
-                //Añadir aquí la llamada a la actividad correspondiente
-
+                menu_visible = false;
                 break;
 
             //Opción del menú de Salir
@@ -179,90 +234,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 salirAplicacion();
 
                 break;
+            case R.id.borrar_favoritos:
+                Log.i("NavigationView", "Pulsada opción 4");
+                borrar_favoritos();
+                menu_visible = false;
         }
 
         drawerLayout.closeDrawers();
 
         return true;
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            //TextView textView = (TextView) rootView.findViewById(R.id. section_label); //Lo cambio yo porque no encuentro este txt en
-            TextView textView = (TextView) rootView.findViewById(R.id. sinConexionTxt);
-
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
-
-            switch (position) {
-                case 0:
-
-                    BuscarFragment buscarFragment = new BuscarFragment();
-                    return buscarFragment;
-                case 1:
-                    Fragment_favoritos favoritosFragment = new Fragment_favoritos();
-                    return favoritosFragment;
-                case 2:
-                    ResultadosFragment resultadosFragment = new ResultadosFragment();
-                    return resultadosFragment;
+    // borramos los favoritos de la bbdd
+    public void borrar_favoritos()
+    {
+        AlertDialog.Builder dialogo2 = new AlertDialog.Builder(this);
+        dialogo2.setTitle("A T E N C I O N");
+        dialogo2.setMessage("Esto eliminara los favoritos guardados. ¿Desea continuar?");
+        dialogo2.setCancelable(false);
+        dialogo2.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                BaseDatosCanciones baseDatosCanciones = new BaseDatosCanciones(getApplicationContext(),"ITUNESBD",null,1);
+                baseDatosCanciones.eliminarTodos();
             }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 0;
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return super.getPageTitle(position);
-        }
+        });
+        dialogo2.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // no hariamos nada
+            }
+        });
+        dialogo2.show();
     }
+
 }

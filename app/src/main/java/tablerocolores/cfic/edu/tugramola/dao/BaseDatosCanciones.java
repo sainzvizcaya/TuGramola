@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +50,21 @@ public class BaseDatosCanciones extends SQLiteOpenHelper {
         // si no lo hemos encontrado insertamos , en caso contrario no hacemos nada ya que ya estaria en la tabla de favoritos ( y se supone que los datos no han variado)
         if (encontrado == false) {
             SQLiteDatabase db = this.getWritableDatabase();
+            String nombre_cancion = "";
+            String nombre_artista= "";
+            String nombre_disco = "";
+            try {
+                // sustituimos los caracteres extraños de los nombres de cancion y de artista para que no nos de error al insertar
+                nombre_cancion = URLEncoder.encode(cancion.getTrackName(),"UTF-8");
+                nombre_artista = URLEncoder.encode(cancion.getArtistName(),"UTF-8");
+                nombre_disco = URLEncoder.encode(cancion.getCollectionName(),"UTF-8");
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             db.execSQL("INSERT INTO FAVORITOS (ID_ARTISTA, ARTISTNAME,TRACKNAME,TRACKID,ARTWORKURL100,PREVIEWURL, COLLECTIONNAME) " +
-                    "VALUES (" + cancion.getArtistId() + ", '" + cancion.getArtistName() + "' , '" + cancion.getTrackName() + "', '" + cancion.getTrackId() + "','" + cancion.getArtworkUrl100() + "', '"
-                    + cancion.getPreviewUrl() + "', '" + cancion.getCollectionName() + "')");
+                    "VALUES (" + cancion.getArtistId() + ", '" + nombre_artista + "' , '" + nombre_cancion + "', '" + cancion.getTrackId() + "','" + cancion.getArtworkUrl100() + "', '"
+                    + cancion.getPreviewUrl() + "', '" + nombre_disco + "')");
             this.cerrarBaseDatos(db);
             Log.d("MIAPP","se ha insertado el registro con clave " + cancion.getArtistId());
         }
@@ -113,10 +128,16 @@ public class BaseDatosCanciones extends SQLiteOpenHelper {
         String previewUrl;
         String collectionName;
         Cancion cancion_aux = null;
+        String nombre_cancion;
+        String nombre_artista;
+        String nombre_disco;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(sql,null);
 
+        nombre_artista = "";
+        nombre_cancion = "";
+        nombre_disco = "";
         if (cursor != null && cursor.getCount() > 0)
         {
             lista = new ArrayList<Cancion>(cursor.getCount());
@@ -132,7 +153,16 @@ public class BaseDatosCanciones extends SQLiteOpenHelper {
                 previewUrl = cursor.getString(5);
                 collectionName = cursor.getString(6);
 
-                cancion_aux = new Cancion(artistName,trackName,artistId,artworkUrl100,previewUrl,trackId,collectionName);
+                // ponemos otra vez los caracteres extraños al devolver el registro de la tabla
+                try {
+                    nombre_artista = URLDecoder.decode(artistName,"UTF-8");
+                    nombre_cancion = URLDecoder.decode(trackName,"UTF-8");
+                    nombre_disco = URLDecoder.decode(collectionName,"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                cancion_aux = new Cancion(nombre_artista,nombre_cancion,artistId,artworkUrl100,previewUrl,trackId,nombre_disco);
 
                 lista.add(cancion_aux);
 

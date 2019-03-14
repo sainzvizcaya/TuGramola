@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,17 +22,22 @@ public class DetalleCancionActivity extends AppCompatActivity {
 
     MediaPlayer mediaPlayer = new MediaPlayer();
     private String url = null;
-    private Cancion cancion;
+    private static Cancion cancion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_cancion);
+
+        //así dibujo la flecha de navegación estandar atrás
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         cancion = null;
         //Cancion cancion = getCancionPrueba();
 
         Bundle loadInfo = getIntent().getExtras();
-        Cancion cancion = (Cancion) loadInfo.getSerializable("cancion");
+        cancion = (Cancion) loadInfo.getSerializable("cancion");
 
         //Imagen (foto)
         ImageView imageView = (ImageView)findViewById(R.id.imageView1);
@@ -103,6 +109,18 @@ public class DetalleCancionActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         if (mediaPlayer != null) mediaPlayer.reset();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                Log.d("MIAPP", "DetalleCancion.atras");
+                super.onBackPressed();
+                break;
+        }
+        return true;
     }
 
 }

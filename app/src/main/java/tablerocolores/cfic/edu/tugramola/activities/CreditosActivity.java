@@ -29,6 +29,10 @@ public class CreditosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creditos);
+        //así dibujo la flecha de navegación estandar atrás
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 /*
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -92,27 +96,27 @@ public class CreditosActivity extends AppCompatActivity {
     public List<Persona> iniBaseDatos() {
         //creo el objeto de la base de datos
         Log.d("MIAPP","Creditos#3");
-        BaseDatos baseDatos = new BaseDatos(this, "personasDB", null, 1);
+        BaseDatos baseDatos = new BaseDatos(this, "personasBBDD", null, 1);
 
         List<Persona> lista=null;
 
         Log.d("MIAPP","Creditos#4");
-        Persona p1 = new Persona(1,"Alvaro","","alvaro-martinez-sainz-vizcaya-53bb7423",
+        Persona p1 = new Persona(1,"Alvaro Martinez Sainz-Vizcaya","","alvaro-martinez-sainz-vizcaya-53bb7423",
                 "sainzvizcaya");
-        Persona p2 = new Persona(2,"Ana Esther","","anaestherrs","anaesther");
-        Persona p3 = new Persona(3,"Fernando Hernandez","","","fernandohv");
-        Persona p4 = new Persona(4,"Flamarique","","","");
-        Persona p5 = new Persona(5,"Henry","","","HenryPaul88");
-        Persona p6 = new Persona(6,"Isma","","","");
-        Persona p7 = new Persona(7,"JaviGP","","","jgpal");
+        Persona p2 = new Persona(2,"Ana Esther Rodriguez Sevilla","","anaestherrs","anaesther");
+        Persona p3 = new Persona(3,"Fernando Hernandez Velasco","","","fernandohv");
+        Persona p4 = new Persona(4,"Ignacio Flamarique Arbizu","","","");
+        Persona p5 = new Persona(5,"Henry Paul","","","HenryPaul88");
+        Persona p6 = new Persona(6,"Ismael ","","","");
+        Persona p7 = new Persona(7,"Javier Gonzalez","","","jgpal");
         Persona p8 = new Persona(8,"Jose Miguel NG","","","");
         Persona p9 = new Persona(9,"Juan Francisco Alonso","","","");
         Persona p10 = new Persona(10,"Julian Navamuel","","","");
-        Persona p11 = new Persona(11,"JulioKalderon","","","");
+        Persona p11 = new Persona(11,"Julio Cesar Calderon","","","");
         Persona p12 = new Persona(12,"Mayca Valverde","","","");
         Persona p13 = new Persona(13,"Nacho Baile","","nachobaile","nachobaile");
         Persona p14 = new Persona(14,"Pablo","","","");
-        Persona p15 = new Persona(15,"Pedro Martinez","","","");
+        Persona p15 = new Persona(15,"Pedro Martinez Justo","","","");
         Persona p16 = new Persona(16,"Raul Martín","","","raulprogramacionfuenla");
         Persona p17 = new Persona(17,"S.Carolina Jiménez Pinzón","foto_carolina",
                 "stephany-carolina-jiménez-pinzón-32b0448b","");
@@ -152,7 +156,7 @@ public class CreditosActivity extends AppCompatActivity {
     }
 
     //Recibimos evento para la flecha estandar
-/*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
@@ -164,6 +168,6 @@ public class CreditosActivity extends AppCompatActivity {
         }
         return true;
     }
-*/
+
 
 }

@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:paddingTop="20dp"
-            app:srcCompat="@drawable/ic_launcher"
-            android:onClick="animacion"/>
+            app:srcCompat="@drawable/ic_launcher" />
         <TextView
             style="@style/titulo"
             android:layout_width="wrap_content"
@@ -44,14 +43,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="* TuGramola te permite escuchar todos los samples disponibles en iTunes. Podrás buscar por artista, albún o canción y añadirlo a favoritos para poderlos escuchar onde quieras."/>
+            android:text="* TuGramola te permite escuchar todos los samples disponibles en iTunes. Podrás buscar por artista, albún o canción y añadirlo a favoritos para poderlos escuchar donde quieras."/>
         <TextView
             style="@style/texto"
             android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="* Podrás buscar por artista, albún o canción y añadirlo a favoritos para poderlos escuchar onde quieras."/>
+            android:text="* Podrás añadir a favoritos con cada nueva búsqueda asi como borrar los antiguos o la totalidad de los mismos."/>
 
 
 
